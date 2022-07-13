@@ -15,6 +15,8 @@ let selCons=[];
 let selected = "";
 
 var concepts = [
+"Contact Improvisation",
+"Direction",
 "The Unknown",
 "Nature",
 "Vision",
@@ -24,10 +26,12 @@ var concepts = [
 "Moving together",
 "Organic processes",
 "Feedback",
+"Dialogues",
 "Somatics",
 "Poetics",
 "Imagining moving together",
 "Tools of audio creation",
+"Locality",
 "Images",
 "Exploration",
 "Witnessing",
@@ -35,7 +39,8 @@ var concepts = [
 "Logic",
 "Language",
 "Silences",
-"Decentralise creativity",
+"Embodied practice",
+"Decentralise collectivity",
 "Professional development"];
 
 function preload() {
@@ -80,6 +85,7 @@ class Node {
     this.concept = con;
     this.txt = createP(this.concept);
     this.txt.style('font-size', '20px');
+    this.txt.style('opacity', '0.7');
     this.xsold = 0;
     this.ysold = 0;
     this.mystring = "a string";
@@ -192,9 +198,9 @@ function returnEl(e){
 }
 
 function moveElements(e){
-  let t = 20; 
+  let t = 60; 
   for(let i =0; i < e.length;i++){
-    let pos = 20+(120*i);
+    let pos = t+(120*i);
     e[i].style.position = "absolute";
     e[i].style.top = pos+"px";
   }
@@ -217,10 +223,11 @@ function displaySelected(){
     </script>
     <style> 
 
-    body {font-size:17px;padding: 10px; margin: 0; } 
+    body {padding: 10px; margin: 0; } 
     canvas {vertical-align: top;}
     .ints {column-count:6}
-    p {white-space:pre-wrap;}
+    div {font-size:17px;}
+    p {font-size:17px;white-space:pre-wrap;}
 
     </style>
   </head>
@@ -282,13 +289,13 @@ Tania
 Alice                            
 
 
-It was really interesting. Every time we made a new Moving On and met with the other people (participating artists), sometimes we didn't know them. Some of us had more experience in making Moving On and it was really interesting to hear the first draft of someone who would not have done any before and would take some freedom like making it a little bit more conceptual. And more thorough. I remember working with Vanio (Vasiliki) who was really thorough about guiding in specific ways with hand movements. They were going onto the torso and around, and we had to change (the scores) quite a few times. She took part in doing something quite artistic really. But then the audio guide with Irene, I was also getting (giving?) feedback, but she had to completely change it. And it was interesting because there were bits that I would be completely going with and Laura wouldn't. And she had to completely change the whole scenery of her audio.  
+<div class="Dialogues">It was really interesting. Every time we made a new Moving On and met with the other people (participating artists), sometimes we didn't know them.</div> <div class="Professional development">Some of us had more experience in making Moving On and it was really interesting to hear the first draft of someone who would not have done any before and would take some freedom like making it a little bit more conceptual. And more thorough. I remember working with Vanio (Vasiliki) who was really thorough about guiding in specific ways with hand movements.</div><div class="Feedback"> They were going onto the torso and around, and we had to change (the scores) quite a few times. She took part in doing something quite artistic really. But then the audio guide with Irene, I was also getting (giving?) feedback, but she had to completely change it. And it was interesting because there were bits that I would be completely going with and Laura wouldn't. And she had to completely change the whole scenery of her audio.  </div>
 I literally never had to completely restart mine but you always would get some different types of feedback. I worked quite a lot on Moving On Pulse with Anne Gaelle . And it was quite smooth actually. Sometimes with others it would get quite complicated to figure out what it is (they are doing or the feedback they are giving) and when you go back to the drawing board, then how do you actually make a change? What is what they are aiming at? And sometimes it can get harder to make the change that was suggested.
 
 Tania
-Because it changes from where you were, and from what you were doing? I mean, it is quite an interesting situation. It is another point actually than the one we put down, but it is an interesting situation. I did not have that experience personally. I mean, I have the experience of being asked to change how I deliver it, and I think quite a few of us have that experience, but not of changing the content as such. The project comes with quite a clear idea of what it should be and of how it should be delivered and there is a censoring process, or directing, shaping it in quite a specific direction. In that way, Laura  takes on that role, which is a choice and I understand it. 
+<div class="Feedback">Because it changes from where you were, and from what you were doing? I mean, it is quite an interesting situation. It is another point actually than the one we put down, but it is an interesting situation. I did not have that experience personally. I mean, I have the experience of being asked to change how I deliver it, and I think quite a few of us have that experience, but not of changing the content as such. The project comes with quite a clear idea of what it should be and of how it should be delivered and there is a censoring process, or directing, shaping it in quite a specific direction. In that way, Laura  takes on that role, which is a choice and I understand it. </div>
 
-With mine, I know that the feedback was that it's less of an embodied practice. It was in her opinion more conceptual and less coming from a movement practice and it's true, it wasn't. This one didn't come directly from working in the park. It came from an idea that I wanted to bring through in this shared practice in the park. I see the difference of creating the audio-guide from being outside compared to having an idea and writing it down. We even did say, this is maybe more of an artistic concept rather than stemming from an outdoors practice. However they always are more than that. We were looking at how Moving On relates to climate, our relationship with climate breakdown or our relationship with the planet. So it brought in a conceptual and political level. But of course, the intention is always to give an embodied experience, so the challenge is to create that balance between the two. So that was feedback towards me. I know the feedback for yours was different in the sense of how you were delivering it. It was a different approach which created an interesting experience and offered something different. One couldn't always fully or rationally understand what you were delivering because you were playing with the distance between your mouth and the microphone, hearing the voice from near or far and playing with panning between left and right. It had a hypnotic effect, quite suggestive, putting one into a certain state that was moving me and which I found interesting because it had an effect on me even though maybe I wouldn't be able to rationally exactly say what you're doing; it was a bit loose and floating as a proposition. But that choice of delivery had an effect on me, a physical effect that I did find interesting. Because it was working on a more subconscious level for me.
+<div class="Embodied practice">With mine, I know that the feedback was that it's less of an embodied practice. It was in her opinion more conceptual and less coming from a movement practice and it's true, it wasn't. This one didn't come directly from working in the park. It came from an idea that I wanted to bring through in this shared practice in the park. I see the difference of creating the audio-guide from being outside compared to having an idea and writing it down. We even did say, this is maybe more of an artistic concept rather than stemming from an outdoors practice. However they always are more than that. We were looking at how Moving On relates to climate, our relationship with climate breakdown or our relationship with the planet. So it brought in a conceptual and political level. But of course, the intention is always to give an embodied experience, so the challenge is to create that balance between the two.</div> So that was feedback towards me. I know the feedback for yours was different in the sense of how you were delivering it. It was a different approach which created an interesting experience and offered something different. One couldn't always fully or rationally understand what you were delivering because you were playing with the distance between your mouth and the microphone, hearing the voice from near or far and playing with panning between left and right. It had a hypnotic effect, quite suggestive, putting one into a certain state that was moving me and which I found interesting because it had an effect on me even though maybe I wouldn't be able to rationally exactly say what you're doing; it was a bit loose and floating as a proposition. But that choice of delivery had an effect on me, a physical effect that I did find interesting. Because it was working on a more subconscious level for me.
 
 Alice
 
@@ -296,11 +303,11 @@ It was a mistake, but then I kept it in the end.
 
 Tania
 
-It had an interesting effect. But we went in a different direction now because we were speaking about how much this project and the audio-guides we are invited to create are already very much framed by the director. The director choses and says this is what it is and this is not what it is. Maybe it's a conversation to be had at some point. The aspect of there being a choreographer or a director who says this movement goes into the piece or not.
+<div class="Direction">It had an interesting effect. But we went in a different direction now because we were speaking about how much this project and the audio-guides we are invited to create are already very much framed by the director. The director choses and says this is what it is and this is not what it is. Maybe it's a conversation to be had at some point. The aspect of there being a choreographer or a director who says this movement goes into the piece or not.</div>
 
 Alice
 
-And in the end, this time, she  let us do it, even though she wasn't sure about the delivery that we had for example. She gives directions to everybody; also about the duration. So we edited it again to make it a bit shorter.
+<div class="Dialogues">And in the end, this time, she  let us do it, even though she wasn't sure about the delivery that we had for example. She gives directions to everybody; also about the duration. So we edited it again to make it a bit shorter.</div>
 
 Tania
 
@@ -319,28 +326,28 @@ Okay, here we go. I can start straight away with a couple of things that you sai
 
 Anne-Gaëlle
 
-You talked about having a vision for the people who will join and from having a vision you then kind of shape yourself and what you were making into a journey for them to go through. I found that very interesting because it makes me think about (us as) containers, but also about how a vision can feed something.
+<div class="Creative process">You talked about having a vision for the people who will join and from having a vision you then kind of shape yourself and what you were making into a journey for them to go through. I found that very interesting because it makes me think about (us as) containers, but also about how a vision can feed something.</div>
 
 Alice
 
-Yes, it all starts with the imagination. And then you slowly find something for people to experience moving together. Yeah, I don't know how to develop this but it's just incredible, from the first day, when you just dig into ideas; it's made together as well alone, by yourself, because you wouldn't be making the choices that you decide on on the spot to create that (audio guide). Would you say it would be very hard to make it completely alone? I think, yeah, because you fit into this frame (structure) of being four or three people. Contained work (?)
+<div class="Imagination">Yes, it all starts with the imagination. And then you slowly find something for people to experience moving together. Yeah, I don't know how to develop this but it's just incredible, from the first day, when you just dig into ideas; it's made together as well alone, by yourself, because you wouldn't be making the choices that you decide on on the spot to create that (audio guide).</div><div class="Moving together"> Would you say it would be very hard to make it completely alone? I think, yeah, because you fit into this frame (structure) of being four or three people. Contained work (?)</div>
 
 Anne-Gaëlle
 
-Also, what I wondered about and noticed, was the difference between me having a great experience that then, I would like to find a way for other people to experience. So like, coming from a physical state or kinesthetic or poetic experience, some kind of connection that I took from a great dance I had. How can I reach or how can I share this place that I had met? 
+<div class="Poetics">Also, what I wondered about and noticed, was the difference between me having a great experience that then, I would like to find a way for other people to experience. So like, coming from a physical state or kinesthetic or poetic experience, some kind of connection that I took from a great dance I had. How can I reach or how can I share this place that I had met? </div>
 Versus having an idea, something I would like to engage with. To find the meaning of that. And I feel like I engage with both in different ways and both have had their challenges, but I realised there were different things at work for me when imagining a vision or imagining a journey with other people.
 
 Alice
 
-Yeah, interaction and being able to grab people, imaginations and bodies.
+<div class="Moving together">Yeah, interaction and being able to grab people, imaginations and bodies.
 
-Anne-Gaëlle
+Anne-GaëlleTools of audio creation
 
-How to grab them? Yes. And you also spoke about how to keep their attention, like to bring them somewhere; how to bring and keep their attention along the way. Can you say more about that?
+How to grab them? Yes. And you also spoke about how to keep their attention, like to bring them somewhere; how to bring and keep their attention along the way. Can you say more about that?</div>
 
 Alice
 
-Often being the last (audio of the various guides that create a project), it would mean that people probably have less attention capacity. So I would use a lot of images and I tried to play with the fact that they are already aware and grounded and maybe less shy than in the beginning. And I would often do three different exploration games so it doesn't last too long by helping them to keep going into something new, even though they've already been through three different audios before and they need to rediscover it. Rediscover the themes. How to keep opening up, staying up (?) really big, completely opening out to the rest of what can be discovered towards the end of the practice. And so often (I would be) using visual elements and usually bringing us together and (playing  with) witnessing (one another).
+<div class="Tools of audio creation">Often being the last (audio of the various guides that create a project), it would mean that people probably have less attention capacity. So I would use a lot of images and I tried to play with the fact that they are already aware and grounded and maybe less shy than in the beginning. And I would often do three different exploration games</div> so it doesn't last too long by helping them to keep going into something new, even though they've already been through three different audios before and they need to rediscover it. Rediscover the themes. How to keep opening up, staying up (?) really big, completely opening out to the rest of what can be discovered towards the end of the practice. And so often (I would be) using visual elements and usually bringing us together and (playing  with) witnessing (one another).
 
 I remember trying to guide them clearly into a walk or because they're not necessarily all in Hilly Fields (main location) or how to bring them from one space to another and making it seem logical in some ways. It's not always easy.
 
@@ -350,28 +357,28 @@ What's logical?
 
 Alice
 
-Like, clearly being directed from one space to the other for them to find it logical to go on. I need to tell them how to go to this specific area and try to find the right words for it to be simple and clear at the same time.
+<div class="Logic">Like, clearly being directed from one space to the other for them to find it logical to go on. I need to tell them how to go to this specific area and try to find the right words for it to be simple and clear at the same time.</div>
 
 Anne-Gaëlle
 
-Language - it's been a big thing, in building  these guides. You know, how, which words, how many words, and also how to say them…
+<div class="Language">Language - it's been a big thing, in building  these guides. You know, how, which words, how many words, and also how to say them…</div>
 
 Alice
 
-Yeah, working on the pronunciation and making decisions on where we place them (words) as well. Where we place the language within the physical exploration. How much time do we keep silent and make sound as well?
+<div class="Silences">Yeah, working on the pronunciation and making decisions on where we place them (words) as well. Where we place the language within the physical exploration. How much time do we keep silent and make sound as well?</div>
 
 Anne-Gaëlle
 
-I feel like there is really a big learning curve in learning to trust particularly from a dancer’s point of view. Before my (dance) training I wasn't that much of a visual and kinesthetic learner. I was a kinesthetic and audio learner. But then through my training I developed the visuals so much. And when making those guides we are trying to decentralise the vision, to still give a space or freedom or to use the vision in a way that won't be standardised. Something that won’t give a model to reproduce. And I have found that from there, I need to trust that the silence is giving time for people to integrate, take in for themselves. To come out of it and come back to it even. Or by keeping a timeframe; I really appreciated the structures that you offered. I remember you would offer a three minutes score and then another three minutes score and then I know this is the duration and now I go. Like what makes us feel like we can go for this. And giving feedback to each other I remember was super helpful in that way.
+I feel like there is really a big learning curve in learning to trust particularly from a dancer’s point of view. Before my (dance) training I wasn't that much of a visual and kinesthetic learner. I was a kinesthetic and audio learner. But then through my training I developed the visuals so much. And when making those guides we are trying to decentralise the vision, to still give a space or freedom or to use the vision in a way that won't be standardised. Something that won’t give a model to reproduce. And I have found that from there, <div class="Decentralise collectivity">I need to trust that the silence is giving time for people to integrate, take in for themselves. To come out of it and come back to it even. Or by keeping a timeframe; I really appreciated the structures that you offered. I remember you would offer a three minutes score and then another three minutes score and then I know this is the duration and now I go. Like what makes us feel like we can go for this. And giving feedback to each other I remember was super helpful in that way.</div>
 
 
 Alice
 
-Yeah and to have the voice as well with you to keep feeding (explorations and company). Maybe sometimes it's too much already. The feedback was really useful for that, to awaken the craft, to know how to, where to point out something to/ for the other person. Because there was always so much already to take in during the (first) draft. It’s already a little entity, so I had to not to completely change it. I remember for me it was quite hard to find ways to make; going forward, push it, push it in the right direction.
+<div class="Feedback">Yeah and to have the voice as well with you to keep feeding (explorations and company). Maybe sometimes it's too much already. The feedback was really useful for that, to awaken the craft, to know how to, where to point out something to/ for the other person. Because there was always so much already to take in during the (first) draft. It’s already a little entity, so I had to not to completely change it. I remember for me it was quite hard to find ways to make; going forward, push it, push it in the right direction.</div>
 
 Anne-Gaëlle
 
-That's interesting. I don't know how you've been taking the feedback. But I realised that for me, there were some very first drafts I was really happy about. And there wasn't so much to change. And there were others where the fact that I needed to do different drafts completely changed the whole thing. And I was happy for that to happen. Because somehow I really needed to bounce or to break some walls or to bounce off some of the things that I had tried to do that were “not working”. Yeah, something that was not working for me, but I didn't know until I had recorded it and could hear what worked for someone else. It was sometimes really surprising or what can be irritating for someone is also sometimes really surprising.
+<div class="Professional development">That's interesting. I don't know how you've been taking the feedback. But I realised that for me, there were some very first drafts I was really happy about. And there wasn't so much to change. And there were others where the fact that I needed to do different drafts completely changed the whole thing. And I was happy for that to happen.</div><div class="The unknown">  Because somehow I really needed to bounce or to break some walls or to bounce off some of the things that I had tried to do that were “not working”. Yeah, something that was not working for me, but I didn't know until I had recorded it and could hear what worked for someone else. It was sometimes really surprising or what can be irritating for someone is also sometimes really surprising.</div>
 
 Alice
 
@@ -379,7 +386,9 @@ Yeah. It was interesting when we weren't pleased with Open Waters or Moving on P
 
 Anne-Gaëlle
 
-I remember it was the one for which I did the most. I tried to do the most exploration: I was working with this pinata trying to make some rhythm with it and with some matchboxes and some guitar but I never used it in the end. Then I went into exploring the sounds, the beats and the words themselves. Yeah, it's good that we had so much time; I had a lot of time in my hands at that point, to explore different ideas. Sometimes it can be a massive weight to have to do this (...) or some other moments it went really weirdly well. It's good to have this clear schedule within it to find a common structure.
+<div class="Organic processes">I remember it was the one for which I did the most. I tried to do the most exploration: I was working with this pinata trying to make some rhythm with it and with some matchboxes and some guitar but I never used it in the end. Then I went into exploring the sounds, the beats and the words themselves. Yeah, it's good that we had so much time; I had a lot of time in my hands at that point, to explore different ideas. Sometimes it can be a massive weight to have to do this (...) or some other moments it went really weirdly well. It's good to have this clear schedule within it to find a common structure.</div>
+
+
 Yes, it is funny how regularity gives deadlines, gives a certain type of process with a lot or a little time, like it really depends from one moment to the other. And how it shaped what we made because there was a time we couldn't make it better, because time was up.
 
 Alice
@@ -452,13 +461,13 @@ And even though these might be just sort of isolated encounters I think they are
 <p>
 Tania
 
-What I found interesting is how Moving On spreads over country borders and that it extended our work as you were moving (house) to another place and that it supported your grounding and anchoring in another place. That's something on my mind just now.
-It's quite interesting because now that we brought it to other parks I feel it (being in a new place) really helps so as to be (present), arrive and experience a place in an embodied and present way. Tuning the senses, stretching time and leaning in. It is really rich for that it allows a certain way of being and relating with a place and therefore anchoring and grounding. And it's opening space inside oneself as well because it's really a way of being present. And allowing all this sensory information in, and to be free to move in relationship to all these, affects and imprints the information of a place.
+<div class="Embodied practice">What I found interesting is how Moving On spreads over country borders and that it extended our work as you were moving (house) to another place and that it supported your grounding and anchoring in another place. That's something on my mind just now.</div>
+<div class="Locality">It's quite interesting because now that we brought it to other parks I feel it (being in a new place) really helps so as to be (present), arrive and experience a place in an embodied and present way. Tuning the senses, stretching time and leaning in. It is really rich for that it allows a certain way of being and relating with a place and therefore anchoring and grounding. And it's opening space inside oneself as well because it's really a way of being present. And allowing all this sensory information in, and to be free to move in relationship to all these, affects and imprints the information of a place.</div>
 
 Anne-Gaëlle
 
-It's interesting because hearing you, I link back to what you said about nature. Like, what is nature? What is my nature? What do we call nature now? 
-And something around moving on while pausing; or forcing a pause because things had stopped moving on during Covid. Right now some things came back to mind which were two people that I heard from or that I spoke a lot with and did things with. Caroline Waters, a contact improvisation (CI) practitioner and artist, and Ray Chung, who's been a contact improviser for a very long time. When they spoke about their relationship to CI, they said the COVID time didn't bring them any desire to practice CI in nature, or to reproduce the form in a small group of chosen people. But they spoke about experiences that felt like that. Ray, online, during a meeting, talked about a thought jam. A thought jam that he felt was what related most to his experience to what a jam is like. Although he was in front of the screen, the relational aspect of thinking together somehow felt similar. 
+<div class="Nature">It's interesting because hearing you, I link back to what you said about nature. Like, what is nature? What is my nature? What do we call nature now? 
+And something around moving on while pausing; or forcing a pause because things had stopped moving on during Covid.</div> Right now some things came back to mind which were two people that I heard from or that I spoke a lot with and did things with.<div class="Contact Improvisation"> Caroline Waters, a contact improvisation (CI) practitioner and artist, and Ray Chung, who's been a contact improviser for a very long time. When they spoke about their relationship to CI, they said the COVID time didn't bring them any desire to practice CI in nature, or to reproduce the form in a small group of chosen people.</div> But they spoke about experiences that felt like that. Ray, online, during a meeting, talked about a thought jam. A thought jam that he felt was what related most to his experience to what a jam is like. Although he was in front of the screen, the relational aspect of thinking together somehow felt similar. 
 And Caroline spoke about going swimming, going to the sea. And she found that was the closest experience she had to being in a CI jam because the sea was like entering into a dialogue with all the senses. And for me, going to practise, or even in the process of preparing for Moving On and then going to practise with it, I felt it opened a very precious place for me, the unknown. 
 I know I will connect but I don't know how I will connect or what will happen or what or whom I will connect with. And this is a place that in improvised scores, or in choreographed scores that include some improvisation, for me is really one of the places that I cherish. Knowing that I will, through my body, meet something unknown, that it will not materialise, unless I go through this and I don't know it yet. From where I am, I will only know it in one hour and a half, or whatever after.
 
