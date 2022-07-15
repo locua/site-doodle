@@ -11,9 +11,6 @@ TODO:
 
   - Finish connections
   - Finish tagging text
-  - Text falling off page
-  - Intersections
-
 
 -->
     <script>
@@ -21,7 +18,6 @@ var num_nodes = 10;
 var nodes = [];
 let infobox;
 let sels = [];
-let selCons=[];
 let selected = "";
 
 let concepts = [
@@ -47,110 +43,18 @@ let concepts = [
 "Witnessing",
 "Group scores",
 "Logic",
+//"The role of dance/ dance as experience and exploration/connectivity as embodied practice",
 "Language",
 "Silences",
 "Embodied practice",
 "Decentralise collectivity",
 "Professional development"];
 
-
-let bg;
-function preload() {
-  bg = loadImage('clouds.jpg');
-}
-
-
-function setup() {
-  let cnv = createCanvas(innerWidth, 600);
-  textSize(20);
-  fill(255);
-  let num_cols = 6;
-  let num_rows = 5;
-  let positions = [];
-  for(let i= 0; i < num_cols;i++){
-    for(let j= 0; j < num_rows;j++){
-      let x = map(i, 0, num_cols, 100, width-200);
-      let y = map(j, 0, num_rows, 100, height-100);
-      positions.push([x,y]);   
-    }
-  }
-  console.log(positions);
-  for (var i = 0; i < concepts.length; i++) {
-      //nodes[i] = new Node(200+(i%10)*120, 100+(i%7)*70, random(-0.2, 0.2), random(-0.2, 0.2), concepts[i], i);
-      let x = positions[i][0];
-      let y = positions[i][1];
-      nodes[i] = new Node(x, y, random(-0.2, 0.2), random(-0.2, 0.2), concepts[i], i);
-  }
-  cnv.parent('cnv');
-
-  infobox = createP("");
-  infobox.style('font-size', '20px');
-  infobox.style('font-family', 'Arial');
-  infobox.style('color', 'red');
-  infobox.style('position', 'static');
-  infobox.style('padding-top', '40px');
-  infobox.style('max-height', '520px');
-  infobox.style("column-count",3);
-  infobox.id('infobox');
-  infobox.position(20,20);
-
-  textFont('Arial');
-  textAlign(CENTER);
-  
-  smooth(8);
-  beginShape();
-}
-
-let radius = 440;
-let factor = 100;
-let np = 10
-let angle;
-
-function draw() {
-  imageMode(CORNER);
-  background(240);
-
-  /*push();
-  translate(width/2, height/2)
-  angle = radians(360) / np;
-  for (let e = 0; e < np;e++){
-        x = cos(angle * e) * radius;
-        y = sin(angle * e) * radius;
-        p = createVector(x, y);
-        p.normalize();
-        n = map(noise(p.x * factor + frameCount*.01, p.y * factor + frameCount*.01), 0, 1, 10, 200);
-        p.mult(n);
-        //fill(100 - e / 10 - abs(p.y), (90 + e) - (p.y/4), 220, 50);
-        fill(200, 100);
-        noStroke();
-        curveVertex(p.x*4, p.y*1.2);
-  }
-  endShape(CLOSE);
-  pop();*/
-
-  for (let i = 0; i < nodes.length; i++) {
-    nodes[i].move();
-    nodes[i].intersects();
-      for(let j = 0; j < nodes.length; j ++) {
-        if(i!=j) 
-          nodes[i].connect(nodes[j]);
-    }
-  }
-  for(let i=0;i< nodes.length; i++){
-    nodes[i].render();
-    nodes[i].renderText();
-  }
-  //let num = frameCount%int(getFrameRate())
-  //if(num==0 || num ==2){
-  //  for (let i = 0; i < nodes.length; i++)
-  //    nodes[i].intersects();
-  //}
-}
-
 let connections = {
 "Language": ["Logic", "Feedback", "Dialogues"],
-"Contact Improvisation":[],
+"Contact Improvisation":["Moving together", "Somatics", "Embodied practice"],
 "Direction":[],
+//"The role of dance/ dance as experience and exploration/connectivity as embodied practice":[],
 "The Unknown":[],
 "Nature":["Organic processes","Locality","Silences"],
 "Vision":[],
@@ -177,6 +81,241 @@ let connections = {
 "Professional development":[]
 }
 
+concepts=[
+"🌖",
+"💚",
+"⚒️ ",
+"💨",
+"👁️",
+"📢",
+"💩",
+"🙌",
+"💢",
+"🌀",
+"😰",
+"🤼",
+"🦠",
+"🌱",
+"☀️ ",
+"🌍",
+"🏵️",
+"🦋",
+"🎊",
+"🩸",
+"🤸",
+"✨",
+"☕",
+"🦜"]
+
+connections={
+"🌖":[],
+"💚":[],
+"⚒️ ":[],
+"💨":["👁️","📢"],
+"👁️":[],
+"📢":[],
+"💩":["🌱"],
+"🙌":[],
+"💢":[],
+"🌀":[],
+"😰":[],
+"🤼":[],
+"🦠":["🌱","🦠"],
+"🌱":[],
+"☀️ ":[],
+"🌍":[],
+"🏵️":[],
+"🦋":[],
+"🎊":[],
+"🩸":[],
+"🤸":[],
+"✨":[],
+"☕":[],
+"🦜":[]}
+
+
+let labels = ["body to nature, people to environment", "Tools","Spaciousness", "Inspiration & Imagintation", "Langauge / poetics", "Organic processes", "Dialogue / Communication / Feedback", "Unknown", "The role of dance / Dance as experience/ exploration / Connectivity as embodied practice", "Covid", "Contact improvisation/ Relational practices / Improvisation", "Nature / More-than-human / Common ground", "Impact on place / nature", "New visibility of dance", "Locality / sense of place", "Witnessing / Acknowledgement", "Safe space", "Creative process", "Wellbeing / healing", "Shared practce", "Somatics", "Routine / Ritual", "Community / Society / Collectivity"]
+
+
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  while (currentIndex != 0) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+let bg;
+
+function preload() {
+  //bg = loadImage('clouds.jpg');
+}
+
+function draw_key(){
+  fill(30);
+  textSize(14);
+  textAlign(LEFT);
+  ktxt = "";
+  for(let i = 0; i < concepts.length; i++){
+    ktxt+=""+concepts[i]+" = "+labels[i]+"\n"; 
+  }
+  text(ktxt, 20, 0, 300, height);
+}
+
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, 500);
+  setup();
+}
+
+let angle;
+let thetime;
+
+
+function createNodes(){
+  nodes = [];
+  startpos = [];
+  let maxw = width-100;
+  let maxh = height-100;
+  let spacing = 40; // min spacing
+  for(let i = 220; i < maxw; i+=spacing){
+    for(let j = 100; j < maxh; j+=spacing){
+      let _p = createVector(i, j);
+      startpos.push(_p);
+    } 
+  }
+  let shuff_pos = shuffle(startpos); 
+  for(let i = 0; i < concepts.length; i++){
+    nodes[i] = new Node(shuff_pos[i].x, shuff_pos[i].y, random(-0.1, 0.1), random(-0.2, 0.2), concepts[i], i);
+  }
+}
+
+function setup() {
+  //rectMode(CENTER);
+  let cnv = createCanvas(innerWidth, 500);
+  textSize(20);
+  fill(255);
+  
+  createNodes();
+
+  cnv.parent('cnv');
+
+  infobox = createP("");
+  infobox.style('font-size', '16px');
+  infobox.style('font-family', 'Arial');
+  infobox.style('position', 'static');
+  infobox.style('padding-top', '40px');
+  infobox.style('max-height', '520px');
+  infobox.style("column-count",3);
+  infobox.id('infobox');
+  infobox.position(20,20);
+
+  textFont('Arial');
+  textAlign(CENTER);
+  
+  //smooth(8);
+
+  //setInterval(intermit, 500);
+  setInterval(getFr, 800);
+  
+  frameRate(50);
+  //noSmooth();
+
+
+  targetX=width/2;
+  targetY=height/2;
+  targetX+=50;
+
+  //for(let i = 0; i < nodes.length; i ++){
+  //  if(random()<0.2){
+  //    nodes[i].selected=true;
+  //  }
+  //}
+  //display_tagged();
+  
+}
+
+
+let radius = 440;
+let factor = 100;
+let np = 6;
+let fr = 0;
+let counter = 0;
+
+function getFr(){
+  fr = int(getFrameRate());
+}
+
+
+let x=[];
+let y=[];
+let easing = 0.01;
+let targetX;
+let targetY;
+let dy;
+let dx;
+
+function draw() {
+  imageMode(CORNER);
+  background(255);
+  //text(fr, targetX, 20);
+  blob();
+  draw_key();
+  for (let i = 0; i < nodes.length; i++) {
+    nodes[i].intersects();
+    for(let j = 0; j < nodes.length; j++){
+      if(i!=j) 
+        nodes[i].links(nodes[j]);
+    }
+  }
+
+  counterold = counter;
+
+  for(let i=0;i< nodes.length; i++)
+    nodes[i].render_c();
+
+  for(let i=0;i< nodes.length; i++){
+    nodes[i].move();
+    nodes[i].render();
+  }
+
+  textAlign(CENTER);
+  for(let i=0;i< nodes.length; i++)
+    nodes[i].renderText();
+
+    
+  //console.log(counter);
+  //fill(20);
+  //textSize(14);
+  //text("Click background to reset", targetX, height-30);
+
+}
+
+let up = true;
+
+function blob(){
+  fill(240, 100);
+  stroke(240);
+  let t = targetY*1.3;
+  for(let i = 0; i < 10; i++){
+    fill(map(i, 0, 10, 250, 180), 40);
+    let sx  = (i/10)*0.8*width;
+    let sy  = (i/10)*0.6*height;
+    ellipse(targetX, t, sx, sy);
+  }       
+  ellipse(targetX, t, 80, 30); 
+  point(targetX, t); 
+}
+
+
 class Node {
   constructor(x, y, xs, ys, con, id) {
     this.selected = false;
@@ -185,11 +324,13 @@ class Node {
     this.xspeed = xs;
     this.yspeed = ys;
     this.concept = con;
+    this.concept.replace(" ", "\n");
     this.xsold = 0;
     this.ysold = 0;
     this.mystring = "a string";
     this.ran = random();
     this.id = id;
+    this.txtoffset = 0;
   }
   changetxt(){
     infobox.html(this.concept);
@@ -203,54 +344,73 @@ class Node {
     }
   }
   renderText(){
-    if(this.hover()){
-      fill(0);textSize(24);
+    if(this.hover() || this.selected){
+      fill(0);
+      textSize(30);
     }
     else{
-      fill(0, 170);
-      textSize(20);
+      fill(0, 200);
+      textSize(24);
     }
-    text(this.concept, this.x_pos, this.y_pos);
+    noStroke();
+    text(this.concept, this.x_pos-50, this.y_pos-5, 100,130);
+  }
+  render_c(){
+    stroke(180);
+    strokeWeight(1);
+    //line(this.x_pos, this.y_pos, width/2, height/2);
+    noFill();
+    curve(this.y_pos, this.x_pos,this.x_pos, this.y_pos,targetX, targetY*1.3, targetY+this.x_pos, targetX+this.y_pos);
   }
   render() {
-    imageMode(CENTER);
-    fill(200, 100);
+    //fill(200, 100);
     strokeWeight(1);
-    if(this.hover())
+    stroke(30, 60);
+    if(this.selected){
+      strokeWeight(2);
+      stroke(20,255, 20, 180);
+      ellipse(this.x_pos, this.y_pos, 45, 45)
+      strokeWeight(3);
+      stroke(255,170,0);
+    }
+    if(this.hover()){
       stroke(255, 0, 0);
-    else
-      stroke(30, 120);
-    if(this.selected)
-      stroke(255,160,0,250);
-    ellipse(this.x_pos, this.y_pos, 50, 50);
-    if(this.selected)
-      fill(255,20,20, 120);
-    else
-      fill(200);
-    stroke(150,50);
-    ellipse(this.x_pos, this.y_pos, 20, 20);
+    }
+
+    fill(255,20,20, 30);
+    ellipse(this.x_pos, this.y_pos, 30, 30);
+    strokeWeight(1);
+    ellipse(this.x_pos, this.y_pos, 3, 3);
+
   }
   move() {
     this.x_pos += this.xspeed;
     this.y_pos += this.yspeed;
-    if (this.x_pos >= width - 50 || this.x_pos <= 50) {
+    if (this.x_pos >= width - 50 || this.x_pos <= 190) {
       this.xspeed = this.xspeed * -1;
     }
-    if (this.y_pos >= height - 250 || this.y_pos <= 100) {
+    if (this.y_pos >= height - 100 || this.y_pos <= 100) {
       this.yspeed = this.yspeed * -1;
     }
   }
   connect(other) {
-    if(!this.selected &&  this.ran<=0.45){
-      stroke(175, 238, 238, 120);
-      strokeWeight(1);
-      line(this.x_pos, this.y_pos,other.x_pos, other.y_pos);
-    }  
-    else if(this.selected) {
+    //if(!this.selected &&  this.ran<=0.45){
+    //  stroke(175, 238, 238, 120);
+    //  strokeWeight(1);
+    //  line(this.x_pos, this.y_pos,other.x_pos, other.y_pos);
+    //}  
+  }
+  links(other){
+    if(true|| this.selected) {
       strokeWeight(2);
-      stroke(255, 0, 0, 100);
-      if(connections[this.concept].includes(other.concept))
-        line(this.x_pos, this.y_pos,other.x_pos, other.y_pos);
+      stroke(255, 0, 0, 40);
+      if(connections[this.concept].includes(other.concept)){
+        //line(this.x_pos, this.y_pos,other.x_pos, other.y_pos);
+        noFill();
+        if(this.selected)
+          stroke(255, 160, 0, 170);
+        curve(other.y_pos, this.x_pos,this.x_pos, this.y_pos,other.x_pos, other.y_pos, this.y_pos, other.x_pos);
+      }
     }
   }
   intersects() {
@@ -260,7 +420,7 @@ class Node {
         let d = dist(this.x_pos, this.y_pos, other.x_pos, other.y_pos);
         //let d = sqrt((this.x_pos-other.xpos)**2 + (this.y_pos-other.ypos)**2);
         //if (abs(this.x_pos-other.x_pos<70) && abs(this.y_pos - other.y_pos)<50){
-        if(d<=50){
+        if(d<=30){
           this.xspeed = this.xspeed * -1;
           this.yspeed = this.yspeed * -1;
         }
@@ -272,7 +432,7 @@ class Node {
 
 function mouseClicked(){
   let dtxt = "";
-  let numn = 0;
+  let cc = 0;
   for (let i = 0; i < nodes.length; i++){
     let _c = nodes[i].concept;
     if(nodes[i].hover()){
@@ -280,23 +440,37 @@ function mouseClicked(){
         nodes[i].selected = true;
       }
       else{
-        let index = selCons.indexOf(_c);
-        if (index !== -1) {
-          selCons.splice(index, 1);
-        }
         nodes[i].selected = false;
       }
     }
   }
+  for(let i = 0; i < nodes.length;i ++){
+      if(nodes[i].hover()) {
+        cc++;
+      }
+   }
+  // click background to reset
+  // if(cc==0 && mouseX < width && mouseX > 0 && mouseY < height && mouseY > 0){
+  // document.getElementById('infoboxo').innerHTML=dtxt;
+  // for (let i = 0; i < nodes.length; i++){
+  //  nodes[i].selected = false;
+  // }
+  // return;
+  //}
+
+ display_tagged();
+}
+
+function display_tagged(){
+  dtxt="";
+  //dtxt="<h4 id=\"interviews\"> <a href=\"#Interviews\">Full interviews ⬇️  </a></h4> ";
   for(let i=0;i<nodes.length;i++){
     if(nodes[i].selected){
-        numn+=1;
         let e = document.getElementsByClassName(nodes[i].concept);
         if(e!=null){
           for(let j=0;j<e.length;j++){
               e[j].style.color = "red";
-              console.log(e[j].parentElement.id);
-              dtxt+="<b>"+e[j].parentElement.id+"</b> on <b>"+nodes[i].concept+"</b>: ";    
+              dtxt+="<b>"+e[j].getAttribute("name")+"</b> on <b>"+labels[i]+"</b>: ";    
               dtxt+=e[j].innerHTML+"\n\n";
           }
         }
@@ -309,8 +483,8 @@ function mouseClicked(){
         }
       }
     }
-  }
   document.getElementById('infoboxo').innerHTML=dtxt;
+  }
 }
 
     </script>
@@ -318,67 +492,95 @@ function mouseClicked(){
 
     body {font-family:Arial; margin: 0; } 
     canvas {vertical-align: top;}
-    .ints {column-count:1;width:50%;margin:auto; }
-    div {font-size:17px; white-space:pre-wrap }
-    p {font-size:17px;white-space:pre-wrap;}
-    h2 {font-family:Georgia}
+    .ints {column-count:2; }
+    .main {font-size:14px; white-space:pre-wrap; width:60%;margin:auto; }
+    div {font-size:14px;}
+    p {font-size:14px;white-space:pre-wrap;}
+    h2 {font-family:Georgia; font-weight: normal; font-size:34px; text-align:center;}
+    h1 {font-size:30px;}
 
     </style>
   </head>
   <body>
-  <br>
+
+<a id="top" href="https://movingon.hotglue.me">
+    <div id="start.head.165763289942" class="text resizable object" style="background-color: rgb(252, 234, 234); color: rgb(0, 0, 0); font-family: DejaVuSansMono; font-size: 25px; font-style: normal; font-weight: normal; height: 31px; left: 105px; letter-spacing: 0.119048em; line-height: 0.531501em; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; position: absolute; text-align: center; top: 4px; width: 494px; word-spacing: 0.412698em; z-index: 100;">
+       <br>
+      Moving On Archive
+    </div>
+  </a>
+  <a href="https://movingon.hotglue.me">
+    <div id="start.head.165763475329" class="text resizable object" style="background-color: transparent; font-size: 32px; height: 51px; left: 546px; position: absolute; text-align: center; top: 8px; width: 100px; z-index: 100;">
+      🏡
+    </div>
+  </a>
+  <div id="start.head.165763482549" class="text resizable object" style="background-color: transparent; height: 100px; left: 258px; position: absolute; top: 494px; width: 100px; z-index: 100;">
+  </div>
+  <div id="start.head.165763495368" class="text resizable object" style="background-color: transparent; font-size: 35px; height: 44px; left: 55px; position: absolute; text-align: center; top: 14px; width: 100px; z-index: 100;">
+    🌳
+  </div>
+
+
   <center>
-<span style="font-size:20px"> <a href="#Alice / Laura"> Alice / Laura</a> ~ <a href="#Alice / Tania"> Alice / Tania</a> ~ <a href="#Alice / Anne-Gaëlle">Alice / Anne-Gaëlle</a> ~ <a href="#Anne-Gaëlle and Laura">Anne-Gaëlle and Laura</a></span> <br><br>
-<b style="font-size:20px">Select concepts in the graph to highlight sections of the interviews and combine them in new ways. See the results below the graph: </b><br>
+<div style="margin-top:80px;font-size:20px"> <a href="#Alice / Laura"> Alice / Laura</a> 🗣 <a href="#Alice / Tania"> Alice / Tania</a> 🗣 <a href="#Alice / Anne-Gaëlle">Alice / Anne-Gaëlle</a> 🗣 <a href="#Anne-Gaëlle / Laura">Anne-Gaëlle / Laura</a> 🗣 <a href="#Tania / Anne-Gaëlle">Tania / Anne-Gaëlle</a> 🗣 <a href="#Tania / Laura">Tania / Laura</a> </div>
+<h4 id="interviews"> <a href="#Interviews">Full interviews ⬇️  </a></h4>
+<div class="main">
+<b style="font-size:16px;">Select emojis in the graph to highlight sections of the interviews and combine them in new ways. See the results below the graph: </b><br></div>
 </center><br>
-
-  <div id="cnv" style="padding-top:0px;"></div>
-  <div class="ints">
-
-
-
-<div style="color:red;font-size:20px;column-count:3" id="infoboxo"></div>
-<h1> Full interviews Below </h1>
-<h2> Alice / Laura </h2>
-<div id="Alice / Laura">
+<center><div id="cnv" style="padding-top:0px;"></div></center>
+<div class="main">
+<center><p>Graph selections:</p></center>
+<div style="background:rgb(255, 237, 240); font-size:14px;column-count:3; padding:20px; border-radius: 14px; border: 2px double burlywood" class="infoboxo" id="infoboxo"></div>
+<h2 id="Interviews"> Full interviews ⬇️ </h2>
+</div>
+<center>
+<div style="margin-top:80px;font-size:20px"> <a href="#Alice / Laura"> Alice / Laura</a> 🗣 <a href="#Alice / Tania"> Alice / Tania</a> 🗣 <a href="#Alice / Anne-Gaëlle">Alice / Anne-Gaëlle</a> 🗣 <a href="#Anne-Gaëlle / Laura">Anne-Gaëlle / Laura</a> 🗣 <a href="#Tania / Anne-Gaëlle">Tania / Anne-Gaëlle</a> 🗣 <a href="#Tania / Laura">Tania / Laura</a> </div>
+</center>
+<div class="main">
+<h2> Alice / Laura </h2> 
+<div class="ints" id="Alice / Laura">
 Alice
 
 You started speaking about the library and how it's been a long time that for you it's an upcoming project that you were planning?
 
 Laura 
-<span class="Inspiration">
-It's not really been something that I've planned so much but something that has emerged as a desire perhaps, because you do these workshops with improvisation and I think particularly contact improvisation practitioners, like Charlie Morrissey or Kirsty Simson, where by the end of the day, I really feel like I'm flying because they manage to bring something to the body that opens so many possibilities.</span> And I am in awe, fascination and wonder how they do that, knowing that it's very little about showing something that you then copy. In contact improvisation often it's been a question mark actually, on how you deliver this technique, how much of it is set material and how much we allow for explorations and that way, sense making.
-<span class="Language">
-I think it's knowing that you can encourage explorations and that way you make people fly and I am realizing how some people (practitioners) have come a long way in developing a language for that sensitivity and space.</span> <span class="Poetics">One that is poetic, sensitive, aware, wise. Wonderful. And I just thought, once in a while, wow, what would it be like to have a library of these scores?</span>
+<span class="👁️" name="Laura">
+👁️It (creating scores) not really been something that I've planned so much but something that has emerged as a desire perhaps, because you do these workshops with improvisation and I think particularly contact improvisation practitioners, like Charlie Morrissey or Kirsty Simson, where by the end of the day, I really feel like I'm flying because they manage to bring something to the body that opens so many possibilities. And I am in awe, fascination and wonder how they do that, knowing that it's very little about showing something that you then copy. In contact improvisation often it's been a question mark actually, on how you deliver this technique, how much of it is set material and how much we allow for explorations and that way, sense making.
 
-So that was basically it.
+
+  
+
+<span class="📢" name="Laura">📢I think it's knowing that you can encourage explorations and that way you make people fly and I am realizing how some people (practitioners) have come a long way in developing a language for that sensitivity and space.📢</span> One that is poetic, sensitive, aware, wise. Wonderful. And I just thought, once in a while, wow, what would it be like to have a library of these scores?
+
+So that was basically it.👁️ </span> 
 
 Maybe I can ping pong something back to you which struck me many times because you are foremost a dance practitioner, improviser and performer. I don't think, well, I actually have to ask, but I don't think there is a large body of teaching experience behind you?
 
-<span class="Imagination">I found your audio guides very inspiring and I have a lot of respect for your achievement because I think you've come a really long way to find words that bring things to the body that people can explore. After having done these audios so many times with different practitioners and especially in the beginning a much wider mix of practitioners, I've started to feel it's more suited for people who have a strong teaching experience already because there's so much in knowing how imagery can instill things in bodies, any body really, and I think you've done that really, really wonderfully and you've done it extremely on your own terms.</span> <span class="Vision">There is a real artistic and personal agency inside of it because you are just sort of making it up on the spot, and that I wanted to feed back to you and ask how that configured because you spoke earlier a little bit on how you approach it (creating these audios) and what is your vision of it.</span> Maybe it's good to hear from you how you yourself make it work? 
+I found your audio guides very inspiring and I have a lot of respect for your achievement because I think you've come a really long way to find words that bring things to the body that people can explore. After having done these audios so many times with different practitioners and especially in the beginning a much wider mix of practitioners, ⚒️ I've started to feel it's more suited for people who have a strong teaching experience already because there's so much in knowing how imagery can instill things in bodies, any body really, and I think you've done that really, really wonderfully and you've done it extremely on your own terms. ⚒️ There is a real artistic and personal agency inside of it because you are just sort of making it up on the spot, and that I wanted to feed back to you and ask how that configured because you spoke earlier a little bit on how you approach it (creating these audios) and what is your vision of it. Maybe it's good to hear from you how you yourself make it work? 
 
 Alice
 
-It's about going in and out of the computer. <span class="Creative process"> During the day I would spend five minutes on the computer, then go away, then stop and go back. I’d go and practice in my garden and have moments where nothing comes out and moments where it just flows of images. It really does help to be moving and not just sitting down. The images have always been the way that I feel them and I can create movement from them myself. (...) How am I going to be able to bring people somewhere that they don't have an idea yet?</span> <span class="Nature"> It's been really useful that you explain how much we add some extension that leads to me being inside of it, it is part of the tools, to bring things (ideas) to the body itself. And with that you can add images (...) and you make connections with nature; and it's always been incredible to be outside. I remember the days where we were completely out in the rain without rain proof things and we're just going for it and it was beautiful to just be there. We've been completely immersed in fresh air and feeling quite strong actually.</span>
+<span class="👁️️️️" name="Alice">️👁️️️<span class="💩">💩It's about going in and out of the computer. During the day I would spend five minutes on the computer, then go away, then stop and go back. I’d go and practice in my garden and have moments where nothing comes out and moments where it just flows of images. It really does help to be moving and not just sitting down.💩</span> The images have always been the way that I feel them and I can create movement from them myself.👁</span> (...) How am I going to be able to bring people somewhere that they don't have an idea yet?<span class="⚒️"> It's been really useful that you explain how much we add some extension that leads to me being inside of it, it is part of the tools, to bring things (ideas) to the body itself. And with that you can add images (...) and you make connections with nature</span>;<span class="💚"> and it's always been incredible to be outside. I remember the days where we were completely out in the rain without rain proof things and we're just going for it and it was beautiful to just be there. We've been completely immersed in fresh air and feeling quite strong actually.</span>
 
 Laura
 
-Yeah, the different weather. It's such a discovery for me because the autopilot is that when we get bad weather we go inside and you crawl under cover. 
-At the moment I'm revisiting audios and I was outside listening to Moving On To Open Waters that was set in the wet November season. And it was also raining a little bit while I was doing it. Yet it was so refreshing, just literally refreshing and wonderful. And it's crazy to feel how now that is so much harder again because it's hard to make that kind of space for ourselves and for these audios and I think that's probably the biggest challenge for me. To come back to that spaciousness and to be honest, I feel like I need to set myself  a rigorous timetable that can make sure that I will go out during the day, or at least try it because I get so swept away with just sitting in front of the computer, working and organizing things, teaching and all of that stuff. 
+<span class="💚">Yeah, the different weather. It's such a discovery for me because the autopilot is that when we get bad weather we go inside and you crawl under cover. 
+At the moment I'm revisiting audios and I was outside listening to Moving On To Open Waters that was set in the wet November season. And it was also raining a little bit while I was doing it. Yet it was so refreshing, just literally refreshing and wonderful. And it's crazy to feel how now that is so much harder again.<span class="💨"> It's hard to make that kind of space for ourselves and for these audios and I think that's probably the biggest challenge for me. <span class="☕">To come back to that spaciousness and to be honest, I feel like I need to set myself  a rigorous timetable that can make sure that I will go out during the day, or at least try it because I get so swept away with just sitting in front of the computer, working and organizing things, teaching and all of that stuff. </span></span></span>
 
-Maybe one more question that's a little bit sensitive. You tell me. You said in doing the audio guides you wanted to counter lostness and you also said there is a sense of direction as we collectively carve these audios. So besides the personal work we do we've got these conversations where we share and co-develop them and it somehow goes towards a shared project.
+<span class="🌖">Maybe one more question that's a little bit sensitive. You tell me. You said in doing the audio guides you wanted to counter lostness and you also said there is a sense of direction as we collectively carve these audios. So besides the personal work we do we've got these conversations where we share and co-develop them and it somehow goes towards a shared project.
 
 Alice
 
-<span class="Inspiration">The process of together finding direction. Like building one's audio into a world like an island. The direction is generally emerging from a couple of people's audio I guess, isn't it? </span><span class="The Unknown">We have the theme (themes emerge via conversations and feedback) however the navigation of it is completely unknown. It's about coming from the unknown and going into this togetherness. I don't know what to say about it. It's always really rewarding to relate how far we go together.</span>
+<span class="💩">The process of together finding direction. Like building one's audio into a world like an island. The direction is generally emerging from a couple of people's audio I guess, isn't it? <span class="💢">We have the theme (themes emerge via conversations and feedback) however the navigation of it is completely unknown. It's about coming from the unknown and going into this togetherness.</span> I don't know what to say about it. It's always really rewarding to relate how far we go together.</span></span>
 
 Laura
 
 <span class="Feedback">Also I think a lot of our work (generally as dance artists) is really experiential and highly subjective.  And there's something in the articulation of it (our approaches and scores via spoken word) where outside perceptions (via feedback sessions with other artists) inform or add to the experience we want to convey. What we propose will always manifest differently with each person and that becomes clearer as we feedback yet something changes based on validation or affirmation that happens with feedback.</span> I feel like that really opened up something interesting … It made our work more relatable and somewhat produced a new common ground between the participating artists. (Like building an island together.)
 
-  </div>
-  <h2> Alice / Tania </h2>
-  <div id="Alice / Tania">
+<a href="#top"> Back to top ⤴️</a>
+</div>
+<h2> Alice / Tania </h2>
+<div class="ints" id="Alice / Tania">
 
 Tania
 
@@ -415,8 +617,10 @@ Alice
 Yeah, I don't know. It's interesting how she would favor things or the way Laura is holding the space. And I think it's really interesting to try and make it suit, to find some ways of delivering it while taking some freedom with a little bit of artistry. Maybe I went too far away and didn't really have a clear ending in the “Moving On With Climates” audio-guide.
 </div>
 
+<a href="#top"> Back to top ⤴️</a>
+
 <h2> Alice / Anne-Gaëlle </h2>
-<div  id="Alice / Anne-Gaëlle">
+<div  class="ints" id="Alice / Anne-Gaëlle">
 Anne-Gaëlle
 
 Okay, here we go. I can start straight away with a couple of things that you said that I thought were very beautiful if you are okay with that?
@@ -427,7 +631,7 @@ Anne-Gaëlle
 
 Alice
 
-<span class="Imagination">Yes, it all starts with the imagination. And then you slowly find something for people to experience moving together. Yeah, I don't know how to develop this but it's just incredible, from the first day, when you just dig into ideas; it's made together as well alone, by yourself, because you wouldn't be making the choices that you decide on on the spot to create that (audio guide).</span><span class="Moving together"> Would you say it would be very hard to make it completely alone? I think, yeah, because you fit into this frame (structure) of being four or three people. Contained work (?)</span>
+<span class="👁️">Yes, it all starts with the imagination. And then you slowly find something for people to experience moving together. Yeah, I don't know how to develop this but it's just incredible, from the first day, when you just dig into ideas; it's made together as well alone, by yourself, because you wouldn't be making the choices that you decide on on the spot to create that (audio guide).</span><span class="Moving together"> Would you say it would be very hard to make it completely alone? I think, yeah, because you fit into this frame (structure) of being four or three people. Contained work (?)</span>
 
 Anne-Gaëlle
 
@@ -507,9 +711,9 @@ Anne-Gaëlle
 Oh Yes. I remember recording myself walking on sand to have a soundtrack of like 25 minutes and then eventually we didn't use all of it but doing different recordings because there was too much wind. Another day there were some people shouting and then another day there was something else. And waiting to record because where I live is a place with loads of cars. So the only time where I have less cars is between one and two o'clock in the morning or something. And all of these elements being new and it's all part of (developing) the relationship to one’s place.
 </div>
 </p>
-
-<h2>Anne-Gaëlle and Laura</h2>
-<div id="Anne-Gaëlle and Laura">
+<a href="#top"> Back to top ⤴️</a>
+<h2>Anne-Gaëlle / Laura</h2>
+<div class="ints" id="Anne-Gaëlle / Laura">
 Anne-Gaëlle
 
 I’m looking back at some of the things that I didn’t mention yet. One is the imprint of the landscape that I was discovering and its effect on me. And I think that’s really the architecture of nature and the new elements. And in particular, how there are things I can be an agent of and the things I cannot control. Like, you know, the wind, the elements and what’s there and then and what’s not there, what’s the weather like etc. How people treat this space or how many people will be there and all of these things. And I have agency on some of those. How I will move, where I will go, where I will stop but it really made me aware of that dialogue as well of what you can control and act upon and what things will always be unknown until you meet them. And it’s been very much part of the practice, part of the processes and part of practicing the audios themselves.
@@ -557,8 +761,10 @@ Laura
 And even though these might be just sort of isolated encounters I think they are super big movements. You know, they’re very meaningful.
 </div>
 
+<a href="#top"> Back to top ⤴️</a>
+
 <h2> Tania / Anne-Gaëlle </h2>
-<div id="Tania / Anne-Gaëlle">
+<div class="ints" id="Tania / Anne-Gaëlle">
 Tania
 
 <span class="Embodied practice">What I found interesting is how Moving On spreads over country borders and that it extended our work as you were moving (house) to another place and that it supported your grounding and anchoring in another place. That's something on my mind just now.</span>
@@ -596,10 +802,14 @@ And the trees receiving us, and the ground. And its different landscapes and lev
 Tania
 
 Yeah absolutely. And that's why I think the question of Moving On, I actually think it would be sad to go away from this and back to the studio only, because I feel like Moving On really opened up something interesting.
+
+
 </div>
 
+<a href="#top"> Back to top ⤴️</a>
+
 <h2>Tania / Laura</h2>
-<div id="Tania / Laura">
+<div class="ints" id="Tania / Laura">
 Laura
 
 Well, maybe I'll just talk a little bit about the aspect of collectivity.
@@ -616,12 +826,15 @@ Tania
 In the Shared practice we do not talk that much and it's very much about being in the space, practising and being touched and informed and affected by the practice without much verbal information. And here with Moving On, we are actually entering practices verbally, rather than visually. It gave another entry into the different people that we know and people that were in the studio together. I thought that was quite interesting. And I think it also reflects the sense of being a collective. I think it's really interesting to have that exchange. In most teaching situations, for example that I have been in, there wasn't so much of that exchange and I think it's actually really useful to have an exchange. 
 
 In a teaching situation I would have participants in a class and I would have maybe more (direct) feedback as to how what I offer resonates more than in the audio guides. You see what it does to people but I didn't always have as much direct feedback (verbally) as to how it's landing on people. Also because it's usually a one off and then you don't don't know them (students) or they don't know you. So sometimes maybe I missed a little bit as to how material was landing, but I know we have the feedback of ourselves. In Moving On Falling Into Spring I had feedback to myself as to what it creates and it gives me feedback by witnessing it. 
+
 Like you say Moving On creates propositions and I think it was interesting, for example, on Saturday for one person saying the suggestions were too much and that participation was difficult and needed to be more direct. Yet he said it's a reflection of himself. Not everybody is used to suggestions in our society. I guess it's not yet the common way of giving an experience. Suggestions are an approach that we (practitioners) are very used to and I think that mindfulness practices we are used to or I would say artistic practices; that it's a conversation to have because it comes back to what you say in the beginning as to how to be in a collective because it comes back to How am I with the proposition? How am I with other people? How am I nurturing and taking care of myself or how am I present with somebody or taking care of somebody and taking care of myself and what we do encompasses lots of practices and it’s about creating space within ourselves and as you say, creating mobility or the possibility of mobility and the awareness of ourselves in relationship to others and the responsiveness also to ourselves and to others. 
 
 And I think the fact that loads of us practice improvisation where there's always a give and take also kind of creates a given and taking in and of a particular place like because you are allowing this place to go through you and pursue you. You are present with this place. And you allow yourself to be witnessed as well. And that's also a giving because you are sharing your practice and you are sharing being seen in a vulnerable unknown receiving giving place.
  
 And, to close, it’s like our own collective that is seeping out into the wider collective. Two people that I saw on Saturday after our workshop, I told them about the Sunday workshop and they came on Sunday. In the past they saw our Moving On, a mother and a child, they saw us practising and the mother and the child were always curious, who are these people in Hilly Fields moving about? So now we finally know what they are doing… even though I said the propositions are always different. 
 </div>
+
+<a href="#top"> Back to top ⤴️</a>
 </p>
 </div>
 </body>
